@@ -128,7 +128,7 @@ $(function() {
     var Router = Backbone.Router.extend({
         routes: {
             '': 'onHome',
-            'thesis/:query': 'onView',
+            'thesis-:id': 'onView',
             'new': 'onCreate',
             'edit': 'onEdit',
             'list': 'onList'
@@ -136,11 +136,10 @@ $(function() {
 
        onHome: function() {
             app.showHome();
-            this.navigate('thesis/123', {trigger: true});
        },
 
-       onView: function(query) {
-           console.log('thesis id', query);
+       onView: function(id) {
+           console.log('thesis id', id);
        },
 
        onCreate: function() {
