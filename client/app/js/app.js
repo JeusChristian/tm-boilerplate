@@ -28,16 +28,16 @@ $(function() {
                 $el.addClass("active");
 
                 if ($el.hasClass('menu-list')) {
-                    this.router.navigate('list', {trigger: true});
+                    self.router.navigate('list', {trigger: true});
                 }
 
                 if ($el.hasClass('menu-create')) {
-                    this.router.navigate('new', {trigger: true});
+                    self.router.navigate('new', {trigger: true});
                 }
             });
 
             $('.navbar-brand').click(function() {
-                this.router.navigate('', {trigger: true});
+                self.router.navigate('', {trigger: true});
             });
         },
 
@@ -128,6 +128,7 @@ $(function() {
     var Router = Backbone.Router.extend({
         routes: {
             '': 'onHome',
+            'thesis/:query': 'onView',
             'new': 'onCreate',
             'edit': 'onEdit',
             'list': 'onList'
@@ -135,6 +136,11 @@ $(function() {
 
        onHome: function() {
             app.showHome();
+            this.navigate('thesis/123', {trigger: true});
+       },
+
+       onView: function(query) {
+           console.log('thesis id', query);
        },
 
        onCreate: function() {
