@@ -12,9 +12,13 @@ $(function() {
             $('.btn-login').attr('href', '/api/login?url=/');
             $('.btn-logout').attr('href','/api/logout?url=/');
 
+            this.router = new Router();
             this.setEventListeners();
             this.getUser();
+
+            Backbone.history.start({pushState: true});
         },
+
         setEventListeners: function() {
             var self = this;
             $('.menu-crud .item a').click(function(ev) {
@@ -24,18 +28,19 @@ $(function() {
                 $el.addClass("active");
 
                 if ($el.hasClass('menu-list')) {
-                    router.navigate('list', {trigger: true});
+                    this.router.navigate('list', {trigger: true});
                 }
 
                 if ($el.hasClass('menu-create')) {
-                    router.navigate('new', {trigger: true});
+                    this.router.navigate('new', {trigger: true});
                 }
             });
 
             $('.navbar-brand').click(function() {
-                router.navigate('', {trigger: true});
+                this.router.navigate('', {trigger: true});
             });
         },
+
         getUser: function() {
             var self = this;
             $.ajax({
@@ -119,7 +124,6 @@ $(function() {
 
     }
 
-    app.init();
 
     var Router = Backbone.Router.extend({
         routes: {
@@ -146,8 +150,7 @@ $(function() {
        }
 
     });
-    var router = new Router();
-    Backbone.history.start({pushState: true});
+    app.init();
 
 
 });
