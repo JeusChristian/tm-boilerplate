@@ -24,12 +24,16 @@ $(function() {
                 $el.addClass("active");
 
                 if ($el.hasClass('menu-list')) {
-                    self.showList();
+                    router.navigate('list', {trigger: true});
                 }
 
                 if ($el.hasClass('menu-create')) {
-                    self.showForm();
+                    router.navigate('new', {trigger: true});
                 }
+            });
+
+            $('.navbar-brand').click(function() {
+                router.navigate('', {trigger: true});
             });
         },
         getUser: function() {
@@ -61,6 +65,9 @@ $(function() {
            $('.menu-loading').addClass('hidden');
            $('.btn-login').addClass('hidden');
            $('.menu-user').removeClass('hidden');
+        },
+        showHome: function() {
+            $('.app-content').html('');
         },
         showList: function() {
             var $listTemplate = getTemplate('tpl-thesis-list');
@@ -113,5 +120,34 @@ $(function() {
     }
 
     app.init();
+
+    var Router = Backbone.Router.extend({
+        routes: {
+            '': 'onHome',
+            'new': 'onCreate',
+            'edit': 'onEdit',
+            'list': 'onList'
+        },
+
+       onHome: function() {
+            app.showHome();
+       },
+
+       onCreate: function() {
+            app.showForm();
+       },
+
+       onEdit: function() {
+
+       },
+
+       onList: function() {
+            app.showList();
+       }
+
+    });
+    var router = new Router();
+    Backbone.history.start({pushState: true});
+
 
 });
