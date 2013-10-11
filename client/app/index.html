@@ -78,7 +78,6 @@
                 <td>
                     <a href='javascript:void(0)' class='btn-view'>View</a> &nbsp;
                     <a href='javascript:void(0)' class='btn-edit'>Edit</a> &nbsp;
-                    <a href='javascript:void(0)' class='btn-delete'>Delete</a>
                 </td>
             </tr>
         </script>
@@ -115,6 +114,16 @@
                     {{/if}}
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
+            </div>
+        </script>
+
+
+        <script id="tpl-thesis-detail" type="text/x-handlebars-template">
+            <div class="col-lg-8">
+                <h1>{{Year}} : {{Title}}</h1>
+                <p class="lead">{{Subtitle }}</p>
+                <hr>
+                <p>{{Description }}</p>
             </div>
         </script>
 

@@ -85,6 +85,12 @@ $(function() {
                 callback(item);
             });
         },
+        showThesis: function(thesis) {
+            var self = this;
+            var $viewTemplate = getTemplate('tpl-thesis-detail', thesis);
+            $('.app-content').html($viewTemplate);
+
+        },
         showForm: function(object) {
             var self = this;
             if (!object) {
@@ -118,6 +124,9 @@ $(function() {
                 var $thesisItem = $(getTemplate('tpl-thesis-list-item', item));
                 $thesisItem.find('.btn-edit').click(function() {
                     self.router.navigate('edit-' + item.Id, {trigger: true});
+                });
+                $thesisItem.find('.btn-view').click(function() {
+                    self.router.navigate('thesis-' + item.Id, {trigger: true});
                 });
                 $('.thesis-list').append($thesisItem);
 
@@ -162,6 +171,9 @@ $(function() {
 
        onView: function(id) {
            console.log('thesis id', id);
+            app.getThesisByID(id, function(item) {
+                app.showThesis(item);
+            });
        },
 
        onCreate: function() {
