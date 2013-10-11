@@ -34,10 +34,18 @@ $(function() {
                 if ($el.hasClass('menu-create')) {
                     self.router.navigate('new', {trigger: true});
                 }
+
             });
 
             $('.navbar-brand').click(function() {
                 self.router.navigate('', {trigger: true});
+            });
+            $('.form-search').submit(function() {
+                self.showList();
+                self.search($('.search-input').val(), function(list) {
+                    self.displayLoadedList(list);
+                });
+                return false;
             });
         },
 
@@ -77,7 +85,13 @@ $(function() {
         showList: function() {
             var $listTemplate = getTemplate('tpl-thesis-list');
             $('.app-content').html($listTemplate);
-            this.loadAllThesis();
+        },
+        search: function(query, callback) {
+            $.get('/api/search/?q=' + query, {
+                returned_fields: JSON.stringify(['Title', 'Year'])
+            }, function(list) {
+                callback(list);
+            });
         },
         getThesisByID: function(id, callback) {
             var object = {};
@@ -122,11 +136,15 @@ $(function() {
             // iterate thru the list to display each item
             _.each(list, function(item) {
                 var $thesisItem = $(getTemplate('tpl-thesis-list-item', item));
+                var id = item.Id
+                if (item.Key) {
+                    id = item.Key;
+                }
                 $thesisItem.find('.btn-edit').click(function() {
-                    self.router.navigate('edit-' + item.Id, {trigger: true});
+                    self.router.navigate('edit-' + id, {trigger: true});
                 });
                 $thesisItem.find('.btn-view').click(function() {
-                    self.router.navigate('thesis-' + item.Id, {trigger: true});
+                    self.router.navigate('thesis-' + id, {trigger: true});
                 });
                 $('.thesis-list').append($thesisItem);
 
@@ -162,6 +180,7 @@ $(function() {
             'thesis-:id': 'onView',
             'new': 'onCreate',
             'edit-:id': 'onEdit',
+            'search-:query': 'onSearch',
             'list': 'onList'
         },
 
@@ -186,9 +205,16 @@ $(function() {
                 app.showForm(item);
             });
        },
+       onSearch: function(query) {
+            app.showList();
+            app.search(query, function(list) {
+                app.displayLoadedList(list);
+            });
+       },
 
        onList: function() {
             app.showList();
+            app.loadAllThesis();
        }
 
     });
