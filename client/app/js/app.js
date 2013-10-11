@@ -173,6 +173,7 @@ $(function() {
            console.log('thesis id', id);
             app.getThesisByID(id, function(item) {
                 app.showThesis(item);
+                FB.XFBML.parse();
             });
        },
 

@@ -6,6 +6,16 @@
         <link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
     <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=567089640031147";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -124,6 +134,8 @@
                 <p class="lead">{{Subtitle }}</p>
                 <hr>
                 <p>{{Description }}</p>
+                <hr>
+                <div class="fb-comments" data-href="http://localhost:8081/thesis-{{Id}}" data-colorscheme="The color scheme used in the plugin" data-numposts="5" data-width="The pixel width of the plugin"></div>
             </div>
         </script>
 
