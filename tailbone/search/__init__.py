@@ -115,9 +115,9 @@ class SearchHandler(BaseHandler):
                 returned_fields=returned_fields,
                 snippeted_fields=snippeted_fields)
     query = search.Query(query_string=q, options=options)
-
     index_name = index_name or _INDEX_NAME
     index = search.Index(name=index_name)
+    logging.info(index_name)
     try:
       results = index.search(query)
     except search.Error as e:
